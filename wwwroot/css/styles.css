@@ -1,0 +1,9 @@
+﻿.book-card {
+    box-shadow: none;
+    cursor: pointer;
+    transition: box-shadow ease-in-out 0.2s;
+}
+
+.book-card:hover {
+    box-shadow: 5px 5px 5px black;
+}
