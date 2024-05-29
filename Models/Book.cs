@@ -27,5 +27,16 @@ namespace ASP_MVC_BookShop.Models
 
         [Required]
         public Author Author { get; set; }
+
+        public override string ToString()
+        {
+            return $"Id: {Id}\n" + 
+                $"Title: {Title}\n" + 
+                $"Publisher: {PublisherName}\n" + 
+                $"Publishing Year: {PublishingYear}\n" + 
+                $"Pages Amount: {PagesAmount}\n" + 
+                $"Rating: {Rating}\n" +
+                $"Author: {Author.FirstName} {Author?.LastName}\n";
+        }
     }
 }

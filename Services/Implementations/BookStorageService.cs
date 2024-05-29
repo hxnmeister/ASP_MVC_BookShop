@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace ASP_MVC_BookShop.Services.Implementations
 {
@@ -10,12 +11,6 @@ namespace ASP_MVC_BookShop.Services.Implementations
     {
         private readonly string _filePath;
         private List<Book> _books;
-
-        public BookStorageService(string filePath)
-        {
-            _filePath = filePath;
-            LoadBooks();
-        }
 
         private void LoadBooks()
         {
@@ -26,6 +21,12 @@ namespace ASP_MVC_BookShop.Services.Implementations
         {
             var fileData = JsonConvert.SerializeObject(_books);
             File.WriteAllText(_filePath, fileData);
+        }
+
+        public BookStorageService(string filePath)
+        {
+            _filePath = filePath;
+            LoadBooks();
         }
 
         public IEnumerable<Book> GetAllBooks()
@@ -48,6 +49,18 @@ namespace ASP_MVC_BookShop.Services.Implementations
         public Book GetById(int id)
         {
             return _books.Count != 0 && id > 0 ? _books.FirstOrDefault(item => item.Id == id) : null;
+        }
+
+        public string StorageToString()
+        {
+            StringBuilder builder = new StringBuilder();
+
+            foreach (var item in _books)
+            {
+                builder.Append(item).Append("\n");
+            }
+
+            return builder.ToString();
         }
     }
 }

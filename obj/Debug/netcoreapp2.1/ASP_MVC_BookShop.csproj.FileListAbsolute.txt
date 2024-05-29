@@ -30,9 +30,8 @@ C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\obj\Debug\netcoreapp2.1\ASP_M
 C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\obj\Debug\netcoreapp2.1\ASP_MVC_BookShop.pdb
 C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\obj\Debug\netcoreapp2.1\ASP_MVC_BookShop.genruntimeconfig.cache
 C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\obj\Debug\netcoreapp2.1\ASP_MVC_BookShop.csproj.CopyComplete
-C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\bin\Debug\netcoreapp2.1\bookStorage.json
 C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\obj\Debug\netcoreapp2.1\Razor\Views\Book\Index.cshtml.g.cs
 C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\obj\Debug\netcoreapp2.1\Razor\Views\Book\Details.cshtml.g.cs
 C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\obj\Debug\netcoreapp2.1\Razor\Views\Book\Create.cshtml.g.cs
 C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\obj\Debug\netcoreapp2.1\Razor\Views\Book\Download.cshtml.g.cs
-C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\bin\Debug\netcoreapp2.1\tempBookData.json
+C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\obj\Debug\netcoreapp2.1\ASP_MVC_BookShop.sourcelink.json

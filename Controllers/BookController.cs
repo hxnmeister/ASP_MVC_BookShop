@@ -1,6 +1,7 @@
 ﻿using ASP_MVC_BookShop.Models;
 using ASP_MVC_BookShop.Services.Implementations;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -14,31 +15,40 @@ namespace ASP_MVC_BookShop.Controllers
     public class BookController : Controller
     {
         private readonly BookStorageService _bookStorage;
+        private readonly IHostingEnvironment _env;
 
-        public BookController(BookStorageService bookStorage)
+        public BookController(BookStorageService bookStorage, IHostingEnvironment env)
         {
             _bookStorage = bookStorage;
+            _env = env;
         }
 
 
         // GET: BookController
         [HttpGet("/")]
-        public ActionResult Index()
+        public IActionResult Index()
         {
             return View(_bookStorage.GetAllBooks());
         }
 
         // GET: BookController/Details/5
         [HttpGet("books/{id}")]
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             ViewBag.Id = id;
-            return View(_bookStorage.GetById(id));
+            Book requestedBook = _bookStorage.GetById(id);
+
+            if(requestedBook == null)
+            {
+                return Redirect("https://www.duckduckgo.com");
+            }
+
+            return View(requestedBook);
         }
 
         // GET: BookController/Create
         [HttpGet("books/create")]
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
@@ -46,7 +56,7 @@ namespace ASP_MVC_BookShop.Controllers
         // POST: BookController/Create
         [HttpPost("books/create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Book model)
+        public IActionResult Create(Book model)
         {
             model.Id = (int)DateTime.UtcNow.Ticks;
             model.Author.Id = (int)DateTime.UtcNow.Ticks;
@@ -56,29 +66,51 @@ namespace ASP_MVC_BookShop.Controllers
         }
 
         [HttpGet("books/download")]
-        public ActionResult Download()
+        public IActionResult Download()
         {
             return View(_bookStorage.GetAllBooks());
         }
 
         [HttpPost("books/download")]
-        public FileResult Download(IFormCollection formData)
+        public IActionResult Download(IFormCollection formData)
         {
-            int id = int.Parse(formData["BookId"]);
-            string pathToTempFile = "tempBookData.json";
-            List<Book> books = new List<Book>(_bookStorage.GetAllBooks());
-            Book requiredBook = books.FirstOrDefault(item => item.Id == id);
-
-            if (requiredBook != null)
+            try
             {
-                var fileData = JsonConvert.SerializeObject(requiredBook);
-                System.IO.File.WriteAllText(pathToTempFile, fileData);
+                int id = int.Parse(formData["BookId"]);
+                string pathToTempFile = Path.Combine(_env.WebRootPath, "Files", "tempBookData.json");
+                List<Book> books = new List<Book>(_bookStorage.GetAllBooks());
+                Book requiredBook = books.FirstOrDefault(item => item.Id == id);
+
+                if (requiredBook != null)
+                {
+                    var fileData = JsonConvert.SerializeObject(requiredBook);
+                    string type = "application/json";
+
+                    System.IO.File.WriteAllText(pathToTempFile, fileData);
+
+                    return PhysicalFile(pathToTempFile, type, $"{requiredBook.Title}.json");
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
+            catch (Exception)
+            {
+                return RedirectToAction("Index");
+            }
+        }
 
-            string path = Path.Combine(Directory.GetCurrentDirectory(), pathToTempFile);
-            string type = "application/json";
+        [HttpGet("books/json")]
+        public JsonResult GetJson()
+        {
+            return Json(_bookStorage.GetAllBooks());
+        }
 
-            return PhysicalFile(path, type, $"{requiredBook.Title}.json");
+        [HttpGet("books/text")]
+        public string GetTxt()
+        {
+            return _bookStorage.StorageToString();
         }
     }
 }

@@ -7,10 +7,10 @@
 <form asp-action="Download" asp-controller="Book" method="post" class="m-auto col-4">
     <div class="form-floating">
         <select class="form-select my-3" id="BookSelector" name="BookId" aria-label="Book Selector:">
-            <option selected>Select book to download!</option>
+            <option class="p-2" selected>Select book to download!</option>
             @foreach(var book in Model)
             {
-                <option value="@book.Id">@book.Title</option>
+                <option class="p-2" value="@book.Id">@book.Title</option>
             }
         </select>
     </div>
