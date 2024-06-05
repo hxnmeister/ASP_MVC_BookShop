@@ -1,36 +1,54 @@
-﻿@{
+﻿@model Book
+
+@{
     ViewData["Title"] = "Adding Book";
 }
 
 <form asp-controller="Book" asp-action="Create" method="post" class="m-auto col-4">
+    <div asp-validation-summary="ModelOnly"></div>
+
     <div class="form-floating my-3">
-        <input type="text" class="form-control" id="Title" name="Title" placeholder="Book Title" required>
-        <label for="Title">Title:</label>
+        <input class="form-control" asp-for="Title" placeholder="Book Title">
+        <label asp-for="Title"></label>
+        <span asp-validation-for="Title" class="text-danger"></span>
     </div>
+
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="PublisherName" name="PublisherName" placeholder="Ranok" required> 
-        <label for="PublisherName">Publisher:</label>
+        <input class="form-control" asp-for="PublisherName" placeholder="Ranok"> 
+        <label asp-for="PublisherName"></label>
+        <span asp-validation-for="PublisherName" class="text-danger"></span>
     </div>
+
     <div class="form-floating mb-3">
-        <input type="number" class="form-control" id="PublishingYear" name="PublishingYear" min="1500" max="2024" value="2024">
-        <label for="PublishingYear">Publishing Year:</label>
+        <input class="form-control" asp-for="PublishingYear">
+        <label asp-for="PublishingYear"></label>
+        <span asp-validation-for="PublishingYear" class="text-danger"></span>
     </div>
+
     <div class="form-floating mb-3">
-        <input type="number" class="form-control" id="Rating" name="Rating" min="1" max="5" value="1">
-        <label for="Rating">Rating:</label>
+        <input class="form-control" asp-for="Rating">
+        <label asp-for="Rating"></label>
+        <span asp-validation-for="Rating" class="text-danger"></span>
     </div>
+
     <div class="form-floating mb-3">
-        <input type="number" class="form-control" id="PagesAmount" name="PagesAmount" min="1">
-        <label for="PagesAmount">Pages:</label>
+        <input class="form-control" asp-for="PagesAmount">
+        <label asp-for="PagesAmount"></label>
+        <span asp-validation-for="PagesAmount" class="text-danger"></span>
     </div>
+
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="FirstName" name="Author.FirstName" placeholder="Taras" required>
-        <label for="FirstName">Author`s First Name:</label>
+        <input class="form-control" id="FirstName" asp-for="Author.FirstName" placeholder="Taras">
+        <label for="Auhtor_FirstName">Author`s First Name:</label>
+        <span asp-validation-for="Author.FirstName" class="text-danger"></span>
     </div>
+
     <div class="form-floating mb-3">
-        <input type="text" class="form-control" id="LastName" name="Author.LastName" placeholder="Shevchenko" required>
-        <label for="LastName">Author`s Last Name:</label>
+        <input class="form-control" asp-for="Author.LastName" placeholder="Shevchenko">
+        <label for="Author_LastName">Author`s Last Name:</label>
+        <span asp-validation-for="Author.LastName" class="text-danger"></span>
     </div>
+
     <div class="container float-end">
         <button type="submit" class="btn btn-outline-success float-end">Create</button>
     </div>

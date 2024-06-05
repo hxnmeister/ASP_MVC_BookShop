@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,24 +9,30 @@ namespace ASP_MVC_BookShop.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessage = "Title is required")]
+        [StringLength(100, ErrorMessage = "Title cannot be longer than 100 characters")]
+        [DisplayName("Title: ")]
         public string Title { get; set; }
 
-        [Required]
-        [StringLength(100)]
+        [Required(ErrorMessage = "Publisher name is required")]
+        [StringLength(100, ErrorMessage = "Publisher name cannot be longer than 100 characters")]
+        [DisplayName("Publisher: ")]
         public string PublisherName { get; set; }
 
-        [Range(1500, 2024)]
+        [Range(1500, 2024, ErrorMessage = "Publishing year must be between 1500 and 2024")]
+        [DisplayName("Publishing Year: ")]
         public int PublishingYear { get; set; }
 
-        [Range(0, int.MaxValue)]
+        [Range(0, int.MaxValue, ErrorMessage = "Pages amount must be a positive number")]
+        [DisplayName("Pages: ")]
         public int PagesAmount { get; set; }
 
-        [Range(1, 5)]
+        [Range(1, 5, ErrorMessage = "Rating must be between 1 and 5")]
+        [DisplayName("Rating: ")]
         public int Rating { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Author is required")]
+        [DisplayName("Author: ")]
         public Author Author { get; set; }
 
         public override string ToString()

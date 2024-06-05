@@ -35,3 +35,5 @@ C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\obj\Debug\netcoreapp2.1\Razor
 C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\obj\Debug\netcoreapp2.1\Razor\Views\Book\Create.cshtml.g.cs
 C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\obj\Debug\netcoreapp2.1\Razor\Views\Book\Download.cshtml.g.cs
 C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\obj\Debug\netcoreapp2.1\ASP_MVC_BookShop.sourcelink.json
+C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\obj\Debug\netcoreapp2.1\Razor\Views\Book\Search.cshtml.g.cs
+C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\obj\Debug\netcoreapp2.1\Razor\Views\Book\SearchResult.cshtml.g.cs

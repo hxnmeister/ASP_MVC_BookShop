@@ -1,0 +1,19 @@
+﻿@model BookSearch
+
+@{
+    ViewData["Title"] = "Searching Page";
+}
+
+<form asp-controller="Book" asp-action="SearchResult" method="post" class="m-auto col-4">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div class="form-floating my-3">
+        <input class="form-control" asp-for="SearchingParam" placeholder="Book Title">
+        <label asp-for="SearchingParam"></label>
+        <span asp-validation-for="SearchingParam" class="text-danger"></span>
+    </div>
+
+    <div class="container float-end">
+        <button type="submit" class="btn btn-outline-success float-end">Create</button>
+    </div>
+</form>

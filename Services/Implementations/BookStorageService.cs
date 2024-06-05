@@ -1,5 +1,6 @@
 ﻿using ASP_MVC_BookShop.Models;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -61,6 +62,18 @@ namespace ASP_MVC_BookShop.Services.Implementations
             }
 
             return builder.ToString();
+        }
+
+        public List<Book> SearchBook(string searchingParam)
+        {
+            return _books.Where(book =>
+            int.TryParse(searchingParam, out int number) &&
+            (number == book.Id || number == book.Rating || number == book.PublishingYear || number == book.PagesAmount) ||
+            searchingParam.Equals(book.Title, StringComparison.CurrentCultureIgnoreCase) ||
+            searchingParam.Equals(book.PublisherName, StringComparison.CurrentCultureIgnoreCase) ||
+            searchingParam.Equals(book.Author.FirstName, StringComparison.CurrentCultureIgnoreCase) ||
+            searchingParam.Equals(book.Author.LastName, StringComparison.CurrentCultureIgnoreCase))
+            .ToList();
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -50,7 +51,12 @@ namespace ASP_MVC_BookShop.Controllers
         [HttpGet("books/create")]
         public IActionResult Create()
         {
-            return View();
+            Book book = new Book()
+            {
+                Author = new Author()
+            };
+
+            return View(book);
         }
 
         // POST: BookController/Create
@@ -58,17 +64,32 @@ namespace ASP_MVC_BookShop.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Book model)
         {
-            model.Id = (int)DateTime.UtcNow.Ticks;
-            model.Author.Id = (int)DateTime.UtcNow.Ticks;
+            if(ModelState.IsValid)
+            {
+                model.Id = (int)DateTime.UtcNow.Ticks;
+                model.Author.Id = (int)DateTime.UtcNow.Ticks;
 
-            _bookStorage.AddOne(model);
-            return RedirectToAction("Index", "Book");
+                _bookStorage.AddOne(model);
+                return RedirectToAction("Index", "Book");
+            }
+            
+            return View(model);
         }
 
         [HttpGet("books/download")]
         public IActionResult Download()
         {
-            return View(_bookStorage.GetAllBooks());
+            List<Book> books = _bookStorage.GetAllBooks().ToList();
+            List<SelectListItem> selectListItems = books.Select((book, index) => new SelectListItem()
+            {
+                Text = book.Title,
+                Value = (index + 1).ToString()
+            }).ToList();
+
+            selectListItems.Insert(0, new SelectListItem() { Text = "Choose book to download!", Value = "" });
+            ViewBag.Options = new SelectList(selectListItems, "Value", "Text", selectListItems[0]);
+
+            return View();
         }
 
         [HttpPost("books/download")]
@@ -111,6 +132,28 @@ namespace ASP_MVC_BookShop.Controllers
         public string GetTxt()
         {
             return _bookStorage.StorageToString();
+        }
+
+        [HttpGet("books/search")]
+        public IActionResult Search()
+        {
+            BookSearch bookSearch = new BookSearch();
+
+            return View(bookSearch);
+        }
+
+        [HttpPost("books/search")]
+        public IActionResult SearchResult(BookSearch model)
+        {
+            if (ModelState.IsValid)
+            {
+                List<Book> requiredBooks = _bookStorage.SearchBook(model.SearchingParam);
+                ViewBag.SearchingParam = model.SearchingParam;
+
+                return View(requiredBooks);
+            }
+
+            return View("Search", model);
         }
     }
 }

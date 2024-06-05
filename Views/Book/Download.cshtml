@@ -1,18 +1,10 @@
-﻿@model List<Book>
-
-@{
+﻿@{
     ViewData["Title"] = "Download Page";
 }
 
 <form asp-action="Download" asp-controller="Book" method="post" class="m-auto col-4">
     <div class="form-floating">
-        <select class="form-select my-3" id="BookSelector" name="BookId" aria-label="Book Selector:">
-            <option class="p-2" selected>Select book to download!</option>
-            @foreach(var book in Model)
-            {
-                <option class="p-2" value="@book.Id">@book.Title</option>
-            }
-        </select>
+        <select class="form-select my-3" asp-items="@ViewBag.Options" id="BookSelector" name="BookId" aria-label="Book Selector:"></select>
     </div>
     <div class="container">
         <button class="btn btn-outline-success float-end">Download</button>

@@ -1,0 +1,43 @@
+﻿@model List<Book>
+
+@{
+    ViewData["Title"] = "Searching Results";
+}
+
+<div class="container">
+    @if(Model.Count > 0)
+    {
+        <h1 class="text-center">Results for "@ViewBag.SearchingParam"</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Publisher</th>
+                    <th scope="col">Publishing Year</th>
+                    <th scope="col">Pages</th>
+                    <th scope="col">Rating</th>
+                    <th scope="col">Auhtor</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var book in Model)
+                {
+                    <tr>
+                        <th scope="row">@book.Id</th>
+                        <td>@book.Title</td>
+                        <td>@book.PublisherName</td>
+                        <td>@book.PublishingYear</td>
+                        <td>@book.PagesAmount</td>
+                        <td>@book.Rating / 5</td>
+                        <td>@book.Author.FirstName @book.Author.LastName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else 
+    {
+        <h1 class="text-danger text-center">No results by "@ViewBag.SearchingParam"!</h1>
+    }
+</div>
