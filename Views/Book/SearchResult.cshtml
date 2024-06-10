@@ -18,6 +18,7 @@
                     <th scope="col">Pages</th>
                     <th scope="col">Rating</th>
                     <th scope="col">Auhtor</th>
+                    <th scope="col">Price</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,6 +32,7 @@
                         <td>@book.PagesAmount</td>
                         <td>@book.Rating / 5</td>
                         <td>@book.Author.FirstName @book.Author.LastName</td>
+                        <td>@book.Price$</td>
                     </tr>
                 }
             </tbody>

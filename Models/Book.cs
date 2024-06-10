@@ -31,6 +31,16 @@ namespace ASP_MVC_BookShop.Models
         [DisplayName("Rating: ")]
         public int Rating { get; set; }
 
+        [Required(ErrorMessage = "Price is required!")]
+        [Range(0.50, double.MaxValue, ErrorMessage = "Price must be greater than 0.50")]
+        [DisplayName("Price: ")]
+        public decimal Price { get; set; }
+
+        public decimal PreviousPrice { get; set; }
+
+        [DisplayName("Is on auction: ")]
+        public bool IsOnAuction { get; set; } = false;
+
         [Required(ErrorMessage = "Author is required")]
         [DisplayName("Author: ")]
         public Author Author { get; set; }

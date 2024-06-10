@@ -32,6 +32,12 @@
     </div>
 
     <div class="form-floating mb-3">
+        <input class="form-control" asp-for="Price">
+        <label asp-for="Price"></label>
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-floating mb-3">
         <input class="form-control" asp-for="PagesAmount">
         <label asp-for="PagesAmount"></label>
         <span asp-validation-for="PagesAmount" class="text-danger"></span>
@@ -47,6 +53,11 @@
         <input class="form-control" asp-for="Author.LastName" placeholder="Shevchenko">
         <label for="Author_LastName">Author`s Last Name:</label>
         <span asp-validation-for="Author.LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input" asp-for="IsOnAuction">
+        <label class="form-check-label" asp-for="IsOnAuction"></label>
     </div>
 
     <div class="container float-end">

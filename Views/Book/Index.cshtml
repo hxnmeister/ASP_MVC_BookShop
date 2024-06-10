@@ -8,13 +8,15 @@
     <div class="row row-cols-4 gy-3 col-10 text-break m-auto">
         @foreach (var book in Model)
         {
-            <div class="col lh-1 book-card mx-3 p-3 border rounded">
+            <auction is-on-auction="@book.IsOnAuction" class="col lh-1 book-card mx-3 p-3 border rounded">
                 <a class="link-body-emphasis link-underline link-underline-opacity-0" asp-controller="Book" asp-action="Details" asp-route-id="@book.Id">
-                    <p>Title: @book.Title</p>
-                    <p>Author: @book.Author.FirstName @book.Author.LastName</p>
+                    <p check-overflow>Title: @book.Title</p>
+                    <p check-overflow>Author: @book.Author.FirstName @book.Author.LastName</p>
                     <p>Rating: @book.Rating / 5</p>
+                    <rating rate="@book.Rating"></rating>
+                    <price current-price="@book.Price" previous-price="@book.PreviousPrice"></price>
                 </a>
-            </div>
+            </auction>
         }
     </div>
 </div>

@@ -24,7 +24,7 @@ using ASP_MVC_BookShop.Models;
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"5e0f36e3c6a7f20fa58c0da7e3f278a31d701d65313418ff39b6493f6c7b1023", @"/Views/Book/Search.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"72966f7e3c0bf24998d8a802c111f2608fc529c2b52a95f8073e61e6d5252242", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA256", @"3e776884da7e66b68608511ba3c89c08df1095a536f913ccb8364193d50637f4", @"/Views/_ViewImports.cshtml")]
     public class Views_Book_Search : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<BookSearch>
     {
         private static readonly global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute __tagHelperAttribute_0 = new global::Microsoft.AspNetCore.Razor.TagHelpers.TagHelperAttribute("class", new global::Microsoft.AspNetCore.Html.HtmlString("form-control"), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.DoubleQuotes);

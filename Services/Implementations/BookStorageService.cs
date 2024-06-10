@@ -13,9 +13,9 @@ namespace ASP_MVC_BookShop.Services.Implementations
         private readonly string _filePath;
         private List<Book> _books;
 
-        private void LoadBooks()
+        private List<Book> LoadBooks()
         {
-            _books = File.Exists(_filePath) ? JsonConvert.DeserializeObject<List<Book>>(File.ReadAllText(_filePath)) : new List<Book>();
+            return File.Exists(_filePath) ? JsonConvert.DeserializeObject<List<Book>>(File.ReadAllText(_filePath)) : new List<Book>();
         }
 
         private void SaveBooks()
@@ -27,7 +27,7 @@ namespace ASP_MVC_BookShop.Services.Implementations
         public BookStorageService(string filePath)
         {
             _filePath = filePath;
-            LoadBooks();
+            _books = LoadBooks() ?? new List<Book>();
         }
 
         public IEnumerable<Book> GetAllBooks()
