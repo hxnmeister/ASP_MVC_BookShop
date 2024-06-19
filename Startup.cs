@@ -1,4 +1,6 @@
-﻿using ASP_MVC_BookShop.Services.Implementations;
+﻿using ASP_MVC_BookShop.Filters;
+using ASP_MVC_BookShop.Services;
+using ASP_MVC_BookShop.Services.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,8 +29,12 @@ namespace ASP_MVC_BookShop
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddTransient(provider => new BookStorageService(@"./wwwroot/Files/bookStorage.json"));
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(ActionLoadTimeFilter));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSingleton(provider => new BookStorageService(@"./wwwroot/Files/bookStorage.json"));
+            services.AddSingleton<IFileActions, FileActionsService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

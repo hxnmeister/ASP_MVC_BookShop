@@ -64,16 +64,33 @@ namespace ASP_MVC_BookShop.Services.Implementations
             return builder.ToString();
         }
 
-        public List<Book> SearchBook(string searchingParam)
+        public List<Book> SearchBook(string searchingParam, string criteria)
         {
-            return _books.Where(book =>
-            int.TryParse(searchingParam, out int number) &&
-            (number == book.Id || number == book.Rating || number == book.PublishingYear || number == book.PagesAmount) ||
-            searchingParam.Equals(book.Title, StringComparison.CurrentCultureIgnoreCase) ||
-            searchingParam.Equals(book.PublisherName, StringComparison.CurrentCultureIgnoreCase) ||
-            searchingParam.Equals(book.Author.FirstName, StringComparison.CurrentCultureIgnoreCase) ||
-            searchingParam.Equals(book.Author.LastName, StringComparison.CurrentCultureIgnoreCase))
-            .ToList();
+            List<Book> foundedBooks = new List<Book>();
+
+            switch(criteria)
+            {
+                case "Title":
+                    foundedBooks.AddRange(this._books.Where(book => book.Title == searchingParam));
+                    break;
+                case "Publisher":
+                    foundedBooks.AddRange(this._books.Where(book => book.PublisherName == searchingParam));
+                    break;
+                case "PublishingYear":
+                    foundedBooks.AddRange(this._books.Where(book => book.PublishingYear == int.Parse(searchingParam)));
+                    break;
+                case "Pages":
+                    foundedBooks.AddRange(this._books.Where(book => book.PagesAmount == int.Parse(searchingParam)));
+                    break;
+                case "Rating":
+                    foundedBooks.AddRange(this._books.Where(book => book.Rating == int.Parse(searchingParam)));
+                    break;
+                case "Author":
+                    foundedBooks.AddRange(this._books.Where(book => $"{book.Author.FirstName} {book.Author.LastName}" == searchingParam));
+                    break;
+            }
+
+            return foundedBooks;
         }
     }
 }

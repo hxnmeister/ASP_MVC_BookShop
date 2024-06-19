@@ -1,4 +1,6 @@
-﻿using ASP_MVC_BookShop.Models;
+﻿using ASP_MVC_BookShop.Filters;
+using ASP_MVC_BookShop.Models;
+using ASP_MVC_BookShop.Services;
 using ASP_MVC_BookShop.Services.Implementations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -13,8 +15,20 @@ using System.Linq;
 
 namespace ASP_MVC_BookShop.Controllers
 {
+    [ExceptionCatcher]
     public class BookController : Controller
     {
+        private readonly List<SelectListItem> SearchingOptions = new List<SelectListItem>
+        {
+            new SelectListItem { Value = "", Text = "Select Criteria", Disabled = true, Selected = true },
+            new SelectListItem { Value = "Title", Text = "Title" },
+            new SelectListItem { Value = "Publisher", Text = "Publisher" },
+            new SelectListItem { Value = "Publishing Year", Text = "Publishing Year" },
+            new SelectListItem { Value = "Pages", Text = "Pages" },
+            new SelectListItem { Value = "Rating", Text = "Rating" },
+            new SelectListItem { Value = "Price", Text = "Price" },
+            new SelectListItem { Value = "Author", Text = "Author" }
+        };
         private readonly BookStorageService _bookStorage;
         private readonly IHostingEnvironment _env;
 
@@ -87,7 +101,7 @@ namespace ASP_MVC_BookShop.Controllers
             }).ToList();
 
             selectListItems.Insert(0, new SelectListItem() { Text = "Choose book to download!", Value = "" });
-            ViewBag.Options = new SelectList(selectListItems, "Value", "Text", selectListItems[0]);
+            ViewBag.DownloadOptions = new SelectList(selectListItems, "Value", "Text", selectListItems[0]);
 
             return View();
         }
@@ -137,18 +151,31 @@ namespace ASP_MVC_BookShop.Controllers
         [HttpGet("books/search")]
         public IActionResult Search()
         {
+            ViewBag.SearchingOptions = SearchingOptions;
             BookSearch bookSearch = new BookSearch();
 
             return View(bookSearch);
         }
 
+        [FormDataAnalizer]
         [HttpPost("books/search")]
         public IActionResult SearchResult(BookSearch model)
         {
+            List<string> numberCriterias = new List<string> { "Rating", "Publishing Year", "Price", "Pages" };
+            ViewBag.SearchingOptions = SearchingOptions;
+
             if (ModelState.IsValid)
             {
-                List<Book> requiredBooks = _bookStorage.SearchBook(model.SearchingParam);
+                if(numberCriterias.Contains(model.Criteria) && !decimal.TryParse(model.SearchingParam, out decimal _number))
+                {
+                    ModelState.AddModelError("SearchingParam", "If selected numbered criteria you cannot enter not number value!");
+                    return View("Search", model);
+                }
+
+                List<Book> requiredBooks = _bookStorage.SearchBook(model.SearchingParam, model.Criteria);
+
                 ViewBag.SearchingParam = model.SearchingParam;
+                ViewBag.Criteria = model.Criteria;
 
                 return View(requiredBooks);
             }

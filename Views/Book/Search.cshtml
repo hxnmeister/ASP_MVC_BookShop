@@ -7,6 +7,8 @@
 <form asp-controller="Book" asp-action="SearchResult" method="post" class="m-auto col-4">
     <div asp-validation-summary="ModelOnly"></div>
 
+    <select class="form-select my-3" asp-items="@ViewBag.SearchingOptions" id="Criteria" name="Criteria" aria-label="Criteria: "></select>
+
     <div class="form-floating my-3">
         <input class="form-control" asp-for="SearchingParam" placeholder="Book Title">
         <label asp-for="SearchingParam"></label>
@@ -14,6 +16,6 @@
     </div>
 
     <div class="container float-end">
-        <button type="submit" class="btn btn-outline-success float-end">Create</button>
+        <button type="submit" class="btn btn-outline-success float-end">Search</button>
     </div>
 </form>

@@ -1,0 +1,48 @@
+Date: 19.06.2024 12:12:57 PM
+Source: ASP_MVC_BookShop
+Message: Hello world!
+Stack Trace:    at ASP_MVC_BookShop.Controllers.BookController.Create() in C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\Controllers\BookController.cs:line 58
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextExceptionFilterAsync()
+
+Date: 19.06.2024 2:41:41 PM
+Source: System.Private.CoreLib
+Message: Could not find file 'C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\wwwroot\Files\statistics.json'.
+Stack Trace:    at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle)
+   at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize)
+   at System.IO.StreamReader..ctor(String path)
+   at ASP_MVC_BookShop.Services.Implementations.FileActionsService.WriteJsonStatistic(String pathToFile, StatisticModel model) in C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\Services\Implementations\FileActionsService.cs:line 21
+   at ASP_MVC_BookShop.Filters.FormDataAnalizerAttribute.OnActionExecuting(ActionExecutingContext context) in C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\Filters\FormDataAnalizerAttribute.cs:line 36
+   at Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute.OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextExceptionFilterAsync()
+
+Date: 19.06.2024 2:42:12 PM
+Source: System.Private.CoreLib
+Message: Could not find file 'C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\wwwroot\Files\statistics.json'.
+Stack Trace:    at System.IO.FileStream.ValidateFileHandle(SafeFileHandle fileHandle)
+   at System.IO.FileStream.CreateFileOpenHandle(FileMode mode, FileShare share, FileOptions options)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize)
+   at System.IO.StreamReader..ctor(String path)
+   at ASP_MVC_BookShop.Services.Implementations.FileActionsService.WriteJsonStatistic(String pathToFile, StatisticModel model) in C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\Services\Implementations\FileActionsService.cs:line 21
+   at ASP_MVC_BookShop.Filters.FormDataAnalizerAttribute.OnActionExecuting(ActionExecutingContext context) in C:\Users\Chaklun\Documents\GitHub\ASP_MVC_BookShop\Filters\FormDataAnalizerAttribute.cs:line 36
+   at Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute.OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextExceptionFilterAsync()
+
