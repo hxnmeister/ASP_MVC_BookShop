@@ -10,11 +10,9 @@ namespace ASP_MVC_BookShop.Filters
     {
         private readonly IFileActions _fileActions;
 
-        public ExceptionCatcherAttribute()
+        public ExceptionCatcherAttribute(IFileActions fileActions)
         {
-            //Изначально использовал через DJ services.AddSingleton<IFileActions, FileActionsService>(); но из за того что я не знаю как использовать атрибут так чтобы
-            //не указывать его параметр который предназначен для DJ использую явную инициализацию
-            _fileActions = new FileActionsService();
+            _fileActions = fileActions;
         }
 
         public override void OnException(ExceptionContext context)

@@ -1,8 +1,6 @@
 ﻿using ASP_MVC_BookShop.Filters;
 using ASP_MVC_BookShop.Models;
-using ASP_MVC_BookShop.Services;
 using ASP_MVC_BookShop.Services.Implementations;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +13,7 @@ using System.Linq;
 
 namespace ASP_MVC_BookShop.Controllers
 {
-    [ExceptionCatcher]
+    [TypeFilter(typeof(ExceptionCatcherAttribute))]
     public class BookController : Controller
     {
         private readonly List<SelectListItem> SearchingOptions = new List<SelectListItem>
