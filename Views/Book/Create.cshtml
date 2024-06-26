@@ -4,6 +4,11 @@
     ViewData["Title"] = "Adding Book";
 }
 
+<div class="container">
+    <p>Random quote:</p>
+    <p>@ViewBag.RandomQuote</p>
+</div>
+
 <form asp-controller="Book" asp-action="Create" method="post" class="m-auto col-4">
     <div asp-validation-summary="ModelOnly"></div>
 

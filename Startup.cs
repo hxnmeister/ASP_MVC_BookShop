@@ -28,13 +28,18 @@ namespace ASP_MVC_BookShop
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddSingleton<IBookStorage>(provider => new BookStorageService(@"./wwwroot/Files/bookStorage.json"));
+            services.AddSingleton<IQuote, QuoteService>();
+            services.AddSingleton<IQuoteOfDay, QuoteOfDayService>();
+            services.AddScoped<IFileActions, FileActionsService>();
+            services.AddScoped<ExceptionCatcherAttribute>();
+            services.AddScoped<ActionLoadTimeFilter>();
+            services.AddScoped<IRandomQuote, RandomQuoteService>();
 
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(ActionLoadTimeFilter));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSingleton(provider => new BookStorageService(@"./wwwroot/Files/bookStorage.json"));
-            services.AddSingleton<IFileActions, FileActionsService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

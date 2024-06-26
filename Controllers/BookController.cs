@@ -1,5 +1,6 @@
 ﻿using ASP_MVC_BookShop.Filters;
 using ASP_MVC_BookShop.Models;
+using ASP_MVC_BookShop.Services;
 using ASP_MVC_BookShop.Services.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ASP_MVC_BookShop.Controllers
 {
@@ -27,11 +29,15 @@ namespace ASP_MVC_BookShop.Controllers
             new SelectListItem { Value = "Price", Text = "Price" },
             new SelectListItem { Value = "Author", Text = "Author" }
         };
-        private readonly BookStorageService _bookStorage;
+        private readonly IBookStorage _bookStorage;
+        private readonly IQuoteOfDay _quoteOfDay;
+        private readonly IRandomQuote _randomQuote;
         private readonly IHostingEnvironment _env;
 
-        public BookController(BookStorageService bookStorage, IHostingEnvironment env)
+        public BookController(IBookStorage bookStorage, IQuoteOfDay quoteOfDay, IRandomQuote randomQuote, IHostingEnvironment env)
         {
+            _randomQuote = randomQuote;
+            _quoteOfDay = quoteOfDay;
             _bookStorage = bookStorage;
             _env = env;
         }
@@ -41,6 +47,7 @@ namespace ASP_MVC_BookShop.Controllers
         [HttpGet("/")]
         public IActionResult Index()
         {
+            ViewBag.QuoteOfDay = _quoteOfDay.GetCurrentQuoteOfDay();
             return View(_bookStorage.GetAllBooks());
         }
 
@@ -63,6 +70,7 @@ namespace ASP_MVC_BookShop.Controllers
         [HttpGet("books/create")]
         public IActionResult Create()
         {
+            ViewBag.RandomQuote = _randomQuote.GetCurrentRandomQuote();
             Book book = new Book()
             {
                 Author = new Author()
