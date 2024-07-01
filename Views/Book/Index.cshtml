@@ -24,4 +24,14 @@
         <p>Quote of a day: </p>
         <p>@ViewBag.QuoteOfDay</p>
     </div>
+
+    <div class="container">
+        <h2>Calendar values (@(ViewBag.CalendarValuesType.Equals("MonthValuesService") ? "Months" : "Days of Week")):</h2>
+        <div class="container text-left">
+            @foreach (var item in ViewBag.CalendarValues)
+            {
+                <p>@item</p>
+            }
+        </div>
+    </div>
 </div>

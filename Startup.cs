@@ -31,6 +31,8 @@ namespace ASP_MVC_BookShop
             services.AddSingleton<IBookStorage>(provider => new BookStorageService(@"./wwwroot/Files/bookStorage.json"));
             services.AddSingleton<IQuote, QuoteService>();
             services.AddSingleton<IQuoteOfDay, QuoteOfDayService>();
+            //При заміні реалізації на DaysOfWeekService або MonthService будемо отримувати різні дані на головній сторінці (BookController - Index)
+            services.AddSingleton<ICalendarValues, DaysOfWeekService>();
             services.AddScoped<IFileActions, FileActionsService>();
             services.AddScoped<ExceptionCatcherAttribute>();
             services.AddScoped<ActionLoadTimeFilter>();

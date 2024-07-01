@@ -32,14 +32,16 @@ namespace ASP_MVC_BookShop.Controllers
         private readonly IBookStorage _bookStorage;
         private readonly IQuoteOfDay _quoteOfDay;
         private readonly IRandomQuote _randomQuote;
+        private readonly ICalendarValues _calendarsValues;
         private readonly IHostingEnvironment _env;
 
-        public BookController(IBookStorage bookStorage, IQuoteOfDay quoteOfDay, IRandomQuote randomQuote, IHostingEnvironment env)
+        public BookController(IBookStorage bookStorage, IQuoteOfDay quoteOfDay, IRandomQuote randomQuote,  IHostingEnvironment env, ICalendarValues calendarsValues)
         {
             _randomQuote = randomQuote;
             _quoteOfDay = quoteOfDay;
             _bookStorage = bookStorage;
             _env = env;
+            _calendarsValues = calendarsValues;
         }
 
 
@@ -48,6 +50,8 @@ namespace ASP_MVC_BookShop.Controllers
         public IActionResult Index()
         {
             ViewBag.QuoteOfDay = _quoteOfDay.GetCurrentQuoteOfDay();
+            ViewBag.CalendarValues = _calendarsValues.GetValues();
+            ViewBag.CalendarValuesType = _calendarsValues.GetType().Name;
             return View(_bookStorage.GetAllBooks());
         }
 
