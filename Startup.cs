@@ -1,4 +1,5 @@
-﻿using ASP_MVC_BookShop.Filters;
+﻿using ASP_MVC_BookShop.Extensions;
+using ASP_MVC_BookShop.Filters;
 using ASP_MVC_BookShop.Services;
 using ASP_MVC_BookShop.Services.Implementations;
 using Microsoft.AspNetCore.Builder;
@@ -28,15 +29,8 @@ namespace ASP_MVC_BookShop
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddSingleton<IBookStorage>(provider => new BookStorageService(@"./wwwroot/Files/bookStorage.json"));
-            services.AddSingleton<IQuote, QuoteService>();
-            services.AddSingleton<IQuoteOfDay, QuoteOfDayService>();
-            //При заміні реалізації на DaysOfWeekService або MonthService будемо отримувати різні дані на головній сторінці (BookController - Index)
-            services.AddSingleton<ICalendarValues, DaysOfWeekService>();
-            services.AddScoped<IFileActions, FileActionsService>();
-            services.AddScoped<ExceptionCatcherAttribute>();
-            services.AddScoped<ActionLoadTimeFilter>();
-            services.AddScoped<IRandomQuote, RandomQuoteService>();
+            services.AddSingletonServices();
+            services.AddScopedServices();
 
             services.AddMvc(options =>
             {

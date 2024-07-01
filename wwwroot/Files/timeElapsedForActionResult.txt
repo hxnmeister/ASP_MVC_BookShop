@@ -146,3 +146,4 @@
 > Action Result Execution Time for ASP_MVC_BookShop.Controllers.BookController.Index (ASP_MVC_BookShop): 1,7741075s. [01.07.2024 11:04:17 AM]
 > Action Result Execution Time for ASP_MVC_BookShop.Controllers.BookController.Index (ASP_MVC_BookShop): 1,6329445s. [01.07.2024 11:05:02 AM]
 > Action Result Execution Time for ASP_MVC_BookShop.Controllers.BookController.Index (ASP_MVC_BookShop): 1,6595612s. [01.07.2024 11:05:21 AM]
+> Action Result Execution Time for ASP_MVC_BookShop.Controllers.BookController.Index (ASP_MVC_BookShop): 1,8253028s. [01.07.2024 11:38:28 AM]
