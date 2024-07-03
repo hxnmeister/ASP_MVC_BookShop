@@ -14,6 +14,7 @@ namespace ASP_MVC_BookShop.Extensions
             services.TryAddScoped<ExceptionCatcherAttribute>();
             services.TryAddScoped<ActionLoadTimeFilter>();
             services.TryAddScoped<IRandomQuote, RandomQuoteService>();
+            services.TryAddScoped<IRecommendation, RecommendationService>();
 
             return services;
         }

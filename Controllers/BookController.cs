@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -33,15 +34,19 @@ namespace ASP_MVC_BookShop.Controllers
         private readonly IQuoteOfDay _quoteOfDay;
         private readonly IRandomQuote _randomQuote;
         private readonly ICalendarValues _calendarsValues;
+        private readonly IRecommendation _recommendation;
         private readonly IHostingEnvironment _env;
+        private readonly IMemoryCache _cache;
 
-        public BookController(IBookStorage bookStorage, IQuoteOfDay quoteOfDay, IRandomQuote randomQuote,  IHostingEnvironment env, ICalendarValues calendarsValues)
+        public BookController(IBookStorage bookStorage, IQuoteOfDay quoteOfDay, IRandomQuote randomQuote,  IHostingEnvironment env, ICalendarValues calendarsValues, IRecommendation recommendation, IMemoryCache cache)
         {
             _randomQuote = randomQuote;
             _quoteOfDay = quoteOfDay;
             _bookStorage = bookStorage;
             _env = env;
             _calendarsValues = calendarsValues;
+            _recommendation = recommendation;
+            _cache = cache;
         }
 
 
@@ -52,6 +57,7 @@ namespace ASP_MVC_BookShop.Controllers
             ViewBag.QuoteOfDay = _quoteOfDay.GetCurrentQuoteOfDay();
             ViewBag.CalendarValues = _calendarsValues.GetValues();
             ViewBag.CalendarValuesType = _calendarsValues.GetType().Name;
+
             return View(_bookStorage.GetAllBooks());
         }
 
@@ -173,19 +179,26 @@ namespace ASP_MVC_BookShop.Controllers
         {
             List<string> numberCriterias = new List<string> { "Rating", "Publishing Year", "Price", "Pages" };
             ViewBag.SearchingOptions = SearchingOptions;
+            string criteria = model.Criteria;
+            string searchingParam = model.SearchingParam;
 
             if (ModelState.IsValid)
             {
-                if(numberCriterias.Contains(model.Criteria) && !decimal.TryParse(model.SearchingParam, out decimal _number))
+                if (numberCriterias.Contains(criteria) && !decimal.TryParse(searchingParam, out _))
                 {
                     ModelState.AddModelError("SearchingParam", "If selected numbered criteria you cannot enter not number value!");
                     return View("Search", model);
                 }
 
-                List<Book> requiredBooks = _bookStorage.SearchBook(model.SearchingParam, model.Criteria);
+                List<Book> requiredBooks = _bookStorage.SearchBook(searchingParam, criteria);
 
-                ViewBag.SearchingParam = model.SearchingParam;
-                ViewBag.Criteria = model.Criteria;
+                ViewBag.SearchingParam = searchingParam;
+                ViewBag.Criteria = criteria;
+
+                Response.Cookies.Append("lastSearchingRequest", searchingParam);
+                Response.Cookies.Append("favouritePublisher", requiredBooks[0].PublisherName);
+
+                _cache.Set("bookRecommendations", _recommendation.GetRecommendedBooksByPublisher(requiredBooks[0].PublisherName));
 
                 return View(requiredBooks);
             }

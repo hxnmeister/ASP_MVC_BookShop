@@ -31,6 +31,7 @@ namespace ASP_MVC_BookShop
 
             services.AddSingletonServices();
             services.AddScopedServices();
+            services.AddMemoryCache();
 
             services.AddMvc(options =>
             {
