@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "mnDTwmKEEZXQBVeaOvM0KRKgguxXr8PH3FYGLu9FgppRbcX1RpdjKcax0kiX/taAzcgaG2TkiL6l23s+tMKatA==",
+  "dgSpecHash": "Z54HHvO6pMdxVwvU4FC31cbzNrDz/hgpf5LaY/f8au59ml/7Q69DeIpEJcbcbhlgAX/glDQ3ooJxd4ZAEgo/xQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Chaklun\\Documents\\GitHub\\ASP_MVC_BookShop\\ASP_MVC_BookShop.csproj",
   "expectedPackageFiles": [
@@ -180,6 +180,7 @@
     "C:\\Users\\Chaklun\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.utils\\2.1.10\\microsoft.visualstudio.web.codegeneration.utils.2.1.10.nupkg.sha512",
     "C:\\Users\\Chaklun\\.nuget\\packages\\microsoft.visualstudio.web.codegenerators.mvc\\2.1.10\\microsoft.visualstudio.web.codegenerators.mvc.2.1.10.nupkg.sha512",
     "C:\\Users\\Chaklun\\.nuget\\packages\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
+    "C:\\Users\\Chaklun\\.nuget\\packages\\netescapades.extensions.logging.rollingfile\\2.5.0\\netescapades.extensions.logging.rollingfile.2.5.0.nupkg.sha512",
     "C:\\Users\\Chaklun\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
     "C:\\Users\\Chaklun\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
     "C:\\Users\\Chaklun\\.nuget\\packages\\newtonsoft.json.bson\\1.0.1\\newtonsoft.json.bson.1.0.1.nupkg.sha512",

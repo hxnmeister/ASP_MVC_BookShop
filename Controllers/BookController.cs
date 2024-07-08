@@ -1,18 +1,17 @@
 ﻿using ASP_MVC_BookShop.Filters;
 using ASP_MVC_BookShop.Models;
 using ASP_MVC_BookShop.Services;
-using ASP_MVC_BookShop.Services.Implementations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ASP_MVC_BookShop.Controllers
 {
@@ -37,8 +36,11 @@ namespace ASP_MVC_BookShop.Controllers
         private readonly IRecommendation _recommendation;
         private readonly IHostingEnvironment _env;
         private readonly IMemoryCache _cache;
+        private readonly ILogger _logger;
 
-        public BookController(IBookStorage bookStorage, IQuoteOfDay quoteOfDay, IRandomQuote randomQuote,  IHostingEnvironment env, ICalendarValues calendarsValues, IRecommendation recommendation, IMemoryCache cache)
+        public BookController(IBookStorage bookStorage, IQuoteOfDay quoteOfDay, IRandomQuote randomQuote,  
+            IHostingEnvironment env, ICalendarValues calendarsValues, 
+            IRecommendation recommendation, IMemoryCache cache, ILogger logger)
         {
             _randomQuote = randomQuote;
             _quoteOfDay = quoteOfDay;
@@ -47,10 +49,10 @@ namespace ASP_MVC_BookShop.Controllers
             _calendarsValues = calendarsValues;
             _recommendation = recommendation;
             _cache = cache;
+            _logger = logger;
         }
 
 
-        // GET: BookController
         [HttpGet("/")]
         public IActionResult Index()
         {
@@ -61,7 +63,6 @@ namespace ASP_MVC_BookShop.Controllers
             return View(_bookStorage.GetAllBooks());
         }
 
-        // GET: BookController/Details/5
         [HttpGet("books/{id}")]
         public IActionResult Details(int id)
         {
@@ -70,13 +71,13 @@ namespace ASP_MVC_BookShop.Controllers
 
             if(requestedBook == null)
             {
+                _logger.LogInformation("Book not found!");
                 return Redirect("https://www.duckduckgo.com");
             }
 
             return View(requestedBook);
         }
 
-        // GET: BookController/Create
         [HttpGet("books/create")]
         public IActionResult Create()
         {
@@ -89,7 +90,6 @@ namespace ASP_MVC_BookShop.Controllers
             return View(book);
         }
 
-        // POST: BookController/Create
         [HttpPost("books/create")]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Book model)
@@ -139,6 +139,8 @@ namespace ASP_MVC_BookShop.Controllers
 
                     System.IO.File.WriteAllText(pathToTempFile, fileData);
 
+                    _logger.LogInformation($"Book {requiredBook.Title} was downloaded!");
+
                     return PhysicalFile(pathToTempFile, type, $"{requiredBook.Title}.json");
                 }
                 else
@@ -146,8 +148,9 @@ namespace ASP_MVC_BookShop.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogWarning($"An excepttion occured during downloading book!\n{ex.Message}\n\n{ex.StackTrace}");
                 return RedirectToAction("Index");
             }
         }
