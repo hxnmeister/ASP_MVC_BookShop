@@ -5,6 +5,6 @@ namespace ASP_MVC_BookShop.Services
 {
     public interface IRecommendation
     {
-        List<Book> GetRecommendedBooksByPublisher(string publisher);
+        List<BookModel> GetRecommendedBooksByPublisher(string publisher);
     }
 }

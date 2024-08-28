@@ -5,11 +5,11 @@ namespace ASP_MVC_BookShop.Services
 {
     public interface IBookStorage
     {
-        IEnumerable<Book> GetAllBooks();
-        void AddMany(IEnumerable<Book> books);
-        void AddOne(Book book);
-        Book GetById(int id);
+        IEnumerable<BookModel> GetAllBooks();
+        void AddMany(IEnumerable<BookModel> books);
+        void AddOne(BookModel book);
+        BookModel GetById(int id);
         string StorageToString();
-        List<Book> SearchBook(string searchingParam, string criteria);
+        List<BookModel> SearchBook(string searchingParam, string criteria);
     }
 }

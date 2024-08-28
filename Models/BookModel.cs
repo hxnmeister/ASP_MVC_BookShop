@@ -5,8 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ASP_MVC_BookShop.Models
 {
-    public class Book
+    public class BookModel
     {
+        [Key]
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Title is required")]
@@ -41,9 +42,11 @@ namespace ASP_MVC_BookShop.Models
         [DisplayName("Is on auction: ")]
         public bool IsOnAuction { get; set; } = false;
 
+        public int AuthorId { get; set; }
+
         [Required(ErrorMessage = "Author is required")]
         [DisplayName("Author: ")]
-        public Author Author { get; set; }
+        public AuthorModel Author { get; set; }
 
         public override string ToString()
         {

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ASP_MVC_BookShop.Models
 {
-    public class BookSearch
+    public class BookSearchModel
     {
         [Required(ErrorMessage = "Searching field cannot be empty!")]
         [MinLength(1, ErrorMessage = "Enter at least 1 character!")]

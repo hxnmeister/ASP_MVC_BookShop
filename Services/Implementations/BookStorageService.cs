@@ -11,11 +11,11 @@ namespace ASP_MVC_BookShop.Services.Implementations
     public class BookStorageService : IBookStorage
     {
         private readonly string _filePath;
-        private List<Book> _books;
+        private List<BookModel> _books;
 
-        private List<Book> LoadBooks()
+        private List<BookModel> LoadBooks()
         {
-            return File.Exists(_filePath) ? JsonConvert.DeserializeObject<List<Book>>(File.ReadAllText(_filePath)) : new List<Book>();
+            return File.Exists(_filePath) ? JsonConvert.DeserializeObject<List<BookModel>>(File.ReadAllText(_filePath)) : new List<BookModel>();
         }
 
         private void SaveBooks()
@@ -27,27 +27,27 @@ namespace ASP_MVC_BookShop.Services.Implementations
         public BookStorageService(string filePath)
         {
             _filePath = filePath;
-            _books = LoadBooks() ?? new List<Book>();
+            _books = LoadBooks() ?? new List<BookModel>();
         }
 
-        public IEnumerable<Book> GetAllBooks()
+        public IEnumerable<BookModel> GetAllBooks()
         {
             return _books;
         }
 
-        public void AddOne(Book book)
+        public void AddOne(BookModel book)
         {
             _books.Add(book);
             SaveBooks();
         }
 
-        public void AddMany(IEnumerable<Book> books)
+        public void AddMany(IEnumerable<BookModel> books)
         {
            _books.AddRange(books);
             SaveBooks();
         }
 
-        public Book GetById(int id)
+        public BookModel GetById(int id)
         {
             return _books.Count != 0 && id > 0 ? _books.FirstOrDefault(item => item.Id == id) : null;
         }
@@ -64,9 +64,9 @@ namespace ASP_MVC_BookShop.Services.Implementations
             return builder.ToString();
         }
 
-        public List<Book> SearchBook(string searchingParam, string criteria)
+        public List<BookModel> SearchBook(string searchingParam, string criteria)
         {
-            List<Book> foundedBooks = new List<Book>();
+            List<BookModel> foundedBooks = new List<BookModel>();
 
             switch(criteria)
             {

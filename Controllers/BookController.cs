@@ -1,6 +1,7 @@
 ﻿using ASP_MVC_BookShop.Filters;
 using ASP_MVC_BookShop.Models;
 using ASP_MVC_BookShop.Services;
+using ASP_MVC_BookShop.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ASP_MVC_BookShop.Controllers
 {
@@ -36,11 +38,12 @@ namespace ASP_MVC_BookShop.Controllers
         private readonly IRecommendation _recommendation;
         private readonly IHostingEnvironment _env;
         private readonly IMemoryCache _cache;
-        private readonly ILogger _logger;
+        private readonly ILogger<BookController> _logger;
+        private readonly BookShopDBContext _dbContext;
 
         public BookController(IBookStorage bookStorage, IQuoteOfDay quoteOfDay, IRandomQuote randomQuote,  
             IHostingEnvironment env, ICalendarValues calendarsValues, 
-            IRecommendation recommendation, IMemoryCache cache, ILogger logger)
+            IRecommendation recommendation, IMemoryCache cache, ILogger<BookController> logger, BookShopDBContext dBContext)
         {
             _randomQuote = randomQuote;
             _quoteOfDay = quoteOfDay;
@@ -50,6 +53,7 @@ namespace ASP_MVC_BookShop.Controllers
             _recommendation = recommendation;
             _cache = cache;
             _logger = logger;
+            _dbContext = dBContext;
         }
 
 
@@ -67,7 +71,7 @@ namespace ASP_MVC_BookShop.Controllers
         public IActionResult Details(int id)
         {
             ViewBag.Id = id;
-            Book requestedBook = _bookStorage.GetById(id);
+            BookModel requestedBook = _bookStorage.GetById(id);
 
             if(requestedBook == null)
             {
@@ -82,9 +86,9 @@ namespace ASP_MVC_BookShop.Controllers
         public IActionResult Create()
         {
             ViewBag.RandomQuote = _randomQuote.GetCurrentRandomQuote();
-            Book book = new Book()
+            BookModel book = new BookModel()
             {
-                Author = new Author()
+                Author = new AuthorModel()
             };
 
             return View(book);
@@ -92,7 +96,7 @@ namespace ASP_MVC_BookShop.Controllers
 
         [HttpPost("books/create")]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Book model)
+        public IActionResult Create(BookModel model)
         {
             if(ModelState.IsValid)
             {
@@ -109,7 +113,7 @@ namespace ASP_MVC_BookShop.Controllers
         [HttpGet("books/download")]
         public IActionResult Download()
         {
-            List<Book> books = _bookStorage.GetAllBooks().ToList();
+            List<BookModel> books = _bookStorage.GetAllBooks().ToList();
             List<SelectListItem> selectListItems = books.Select((book, index) => new SelectListItem()
             {
                 Text = book.Title,
@@ -129,8 +133,8 @@ namespace ASP_MVC_BookShop.Controllers
             {
                 int id = int.Parse(formData["BookId"]);
                 string pathToTempFile = Path.Combine(_env.WebRootPath, "Files", "tempBookData.json");
-                List<Book> books = new List<Book>(_bookStorage.GetAllBooks());
-                Book requiredBook = books.FirstOrDefault(item => item.Id == id);
+                List<BookModel> books = new List<BookModel>(_bookStorage.GetAllBooks());
+                BookModel requiredBook = books.FirstOrDefault(item => item.Id == id);
 
                 if (requiredBook != null)
                 {
@@ -171,14 +175,14 @@ namespace ASP_MVC_BookShop.Controllers
         public IActionResult Search()
         {
             ViewBag.SearchingOptions = SearchingOptions;
-            BookSearch bookSearch = new BookSearch();
+            BookSearchModel bookSearch = new BookSearchModel();
 
             return View(bookSearch);
         }
 
         [FormDataAnalizer]
         [HttpPost("books/search")]
-        public IActionResult SearchResult(BookSearch model)
+        public IActionResult SearchResult(BookSearchModel model)
         {
             List<string> numberCriterias = new List<string> { "Rating", "Publishing Year", "Price", "Pages" };
             ViewBag.SearchingOptions = SearchingOptions;
@@ -193,7 +197,7 @@ namespace ASP_MVC_BookShop.Controllers
                     return View("Search", model);
                 }
 
-                List<Book> requiredBooks = _bookStorage.SearchBook(searchingParam, criteria);
+                List<BookModel> requiredBooks = _bookStorage.SearchBook(searchingParam, criteria);
 
                 ViewBag.SearchingParam = searchingParam;
                 ViewBag.Criteria = criteria;

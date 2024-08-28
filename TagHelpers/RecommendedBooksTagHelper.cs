@@ -18,7 +18,7 @@ namespace ASP_MVC_BookShop.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            List<Book> recommendedBooks = _cache.Get<List<Book>>("bookRecommendations");
+            List<BookModel> recommendedBooks = _cache.Get<List<BookModel>>("bookRecommendations");
 
             if(recommendedBooks != null && recommendedBooks.Count > 0)
             {

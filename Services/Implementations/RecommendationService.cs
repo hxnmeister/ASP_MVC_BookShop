@@ -13,7 +13,7 @@ namespace ASP_MVC_BookShop.Services.Implementations
             _bookStorage = bookStorage;
         }
 
-        public List<Book> GetRecommendedBooksByPublisher(string publisher)
+        public List<BookModel> GetRecommendedBooksByPublisher(string publisher)
         {
             return _bookStorage.GetAllBooks().Where(item => item.PublisherName.Equals(publisher, System.StringComparison.CurrentCultureIgnoreCase)).ToList();
         }

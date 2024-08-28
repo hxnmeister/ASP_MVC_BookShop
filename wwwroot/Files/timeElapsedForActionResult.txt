@@ -174,3 +174,6 @@
 > Action Result Execution Time for ASP_MVC_BookShop.Controllers.BookController.Search (ASP_MVC_BookShop): 0,2677355s. [03.07.2024 1:28:25 PM]
 > Action Result Execution Time for ASP_MVC_BookShop.Controllers.BookController.SearchResult (ASP_MVC_BookShop): 0,2235071s. [03.07.2024 1:28:28 PM]
 > Action Result Execution Time for ASP_MVC_BookShop.Controllers.BookController.Index (ASP_MVC_BookShop): 0,0033383s. [03.07.2024 1:28:33 PM]
+> Action Result Execution Time for ASP_MVC_BookShop.Controllers.BookController.Index (ASP_MVC_BookShop): 2,0336037s. [08.07.2024 12:38:25 PM]
+> Action Result Execution Time for ASP_MVC_BookShop.Controllers.BookController.Details (ASP_MVC_BookShop): 0,1389258s. [08.07.2024 12:38:28 PM]
+> Action Result Execution Time for ASP_MVC_BookShop.Controllers.BookController.Create (ASP_MVC_BookShop): 0,3687317s. [08.07.2024 12:38:30 PM]

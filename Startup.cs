@@ -2,10 +2,12 @@
 using ASP_MVC_BookShop.Filters;
 using ASP_MVC_BookShop.Services;
 using ASP_MVC_BookShop.Services.Implementations;
+using ASP_MVC_BookShop.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
@@ -14,15 +16,17 @@ namespace ASP_MVC_BookShop
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         public void ConfigureServices(IServiceCollection services)
         {
+            const string KEY_DB_NAME = "DefaultConnection";
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -32,6 +36,7 @@ namespace ASP_MVC_BookShop
             services.AddSingletonServices();
             services.AddScopedServices();
             services.AddMemoryCache();
+            services.AddDbContext<BookShopDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString(KEY_DB_NAME)));
 
             services.AddMvc(options =>
             {
